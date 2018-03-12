@@ -1,12 +1,5 @@
 Rails.application.routes.draw do
   get 'employee/show'
-
-  get 'company/show'
-
-  get 'company/new'
-
-  get 'company/edit'
-
   get 'user/show'
 
   resources :project
@@ -17,7 +10,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  resources :companies
+  resources :company, :controllers => 'companies'
   devise_for :companies, controllers: {
     sessions:      'companies/sessions',
     passwords:     'companies/passwords',
