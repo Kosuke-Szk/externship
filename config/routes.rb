@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
+  resources :companies
   devise_for :companies, controllers: {
     sessions:      'companies/sessions',
     passwords:     'companies/passwords',

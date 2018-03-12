@@ -1,24 +1,28 @@
 <div class="sidenav">
   <div class="sidenav_title">malna</div>
-  <div class="sidenav_title">学生向け</div>
-  <% if !user_signed_in? %>
-    <%= link_to "サインアップ", new_user_registration_path %>
-    <%= link_to "ログイン", new_user_session_path %>
-    <%= link_to 'facebookアカウントでログイン', user_facebook_omniauth_authorize_path %>
-  <% else %>
-    <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-  <% end %>
-    <%= link_to "マイページ", current_user %>
-    <%= link_to "プロジェクト", project_index_path %>
-  <br>
-  <div class="sidenav_title">企業向け</div>
   <% if !company_signed_in? %>
-    <%= link_to "サインアップ", new_company_registration_path %>
-    <%= link_to "ログイン", new_company_session_path %>
-  <% else %>
-    <%= link_to "ログアウト", destroy_company_session_path, method: :delete %>
+    <% if !user_signed_in? %>
+      <div class="sidenav_title">学生向け</div>
+      <%= link_to "サインアップ", new_user_registration_path %>
+      <%= link_to "ログイン", new_user_session_path %>
+      <%= link_to 'facebookアカウントでログイン', user_facebook_omniauth_authorize_path %>
+    <% else %>
+      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+    <% end %>
+      <%= link_to "マイページ", current_user %>
+      <%= link_to "プロジェクト", project_index_path %>
   <% end %>
-    <%= link_to "プロジェクト", project_index_path %>
+  <br>
+  <% if !user_signed_in? %>
+    <% if !company_signed_in? %>
+      <div class="sidenav_title">企業向け</div>
+      <%= link_to "サインアップ", new_company_registration_path %>
+      <%= link_to "ログイン", new_company_session_path %>
+    <% else %>
+      <%= link_to "ログアウト", destroy_company_session_path, method: :delete %>
+    <% end %>
+      <%= link_to "プロジェクト", project_index_path %>
+  <% end %>
 </div>
 
 <style>
