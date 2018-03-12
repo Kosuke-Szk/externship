@@ -1,0 +1,49 @@
+<div class="sidenav">
+  <div class="sidenav_title">malna</div>
+  <div class="sidenav_title">学生向け</div>
+  <% if !user_signed_in? %>
+    <%= link_to "サインアップ", new_user_registration_path %>
+    <%= link_to "ログイン", new_user_session_path %>
+    <%= link_to 'facebookアカウントでログイン', user_facebook_omniauth_authorize_path %>
+  <% else %>
+    <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+  <% end %>
+    <%= link_to "マイページ", current_user %>
+    <%= link_to "プロジェクト", project_index_path %>
+  <br>
+  <div class="sidenav_title">企業向け</div>
+  <% if !company_signed_in? %>
+    <%= link_to "サインアップ", new_company_registration_path %>
+    <%= link_to "ログイン", new_company_session_path %>
+  <% else %>
+    <%= link_to "ログアウト", destroy_company_session_path, method: :delete %>
+  <% end %>
+    <%= link_to "プロジェクト", project_index_path %>
+</div>
+
+<style>
+.sidenav_title {
+  padding: 6px 8px 6px 16px;
+  font-size: 22px;
+  color: #818181;
+}
+.sidenav {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+}
+</style>
