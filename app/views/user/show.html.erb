@@ -1,0 +1,12 @@
+
+<div class="container">
+  <%= link_to '編集する', edit_user_path %>
+  <h2><%= @user.fullname %></h2>
+  <%= image_tag @user.image %> <br>
+  <h3>掲載中のプロジェクト</h3>
+  <div class="row">
+    <% @user.projects.each do |project| %>
+      <%= link_to project.title, project %>
+    <% end %>
+  </div>
+</div>

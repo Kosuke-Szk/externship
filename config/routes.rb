@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   get 'employee/show'
   get 'user/show'
 
+  get 'home/login_window'
+
   resources :project
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks',

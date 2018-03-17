@@ -57,3 +57,8 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'dotenv-rails'
+gem 'bootstrap'
+gem 'jquery-rails'
+
+gem 'carrierwave'
+gem 'rmagick', require: 'RMagick'

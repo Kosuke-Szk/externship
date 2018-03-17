@@ -4,4 +4,9 @@
   <%= @project.target_amount_of_money %> <br>
   <%= @project.current_amount_of_money %> <br>
   <%= @project.description %> <br>
+  <% if @project.image? %>
+    <%= image_tag @project.(:thumb) %>
+  <% end %>
+  <%= link_to '編集する', edit_project_path(@project) %> <br>
+  <%= link_to '削除する', @project, method: :delete, data: {confirm: 'この求人を本当に削除しますか？'}%>
 </div>
