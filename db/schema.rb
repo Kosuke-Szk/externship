@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180317161625) do
+ActiveRecord::Schema.define(version: 20180318034642) do
+
+  create_table "applies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "project_id"
+    t.bigint "company_id"
+    t.integer "amount_of_money", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status", default: 0
+    t.index ["company_id"], name: "index_applies_on_company_id"
+    t.index ["project_id"], name: "index_applies_on_project_id"
+  end
 
   create_table "companies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "email", default: "", null: false
@@ -74,5 +85,7 @@ ActiveRecord::Schema.define(version: 20180317161625) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "applies", "companies"
+  add_foreign_key "applies", "projects"
   add_foreign_key "projects", "users"
 end

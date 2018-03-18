@@ -17,8 +17,10 @@
     <label>説明</label>
     <%= f.text_field :description, placeholder: "説明", class: 'form-control input-sm'  %><br>
     <%= f.hidden_field :user_id,  :value => current_user.id  %>
+    <label>画像</label>
+    <%= f.file_field :image, class: 'form-control'  %><br>
     </div>
-    <%= f.submit "更新", class: "btn btn-primary"  %>
+    <%= f.submit "作成", class: "btn btn-primary"  %>
   </div>
 <% end %>
 </div>

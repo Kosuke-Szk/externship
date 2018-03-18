@@ -22,4 +22,6 @@ Rails.application.routes.draw do
   resources :user
   get 'home/index'
   root to: 'home#index'
+
+  resources :apply, only: [:create, :destroy]
 end
