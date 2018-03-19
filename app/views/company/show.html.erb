@@ -1,10 +1,31 @@
-<div>
-  <%= render 'layouts/portfolio_bar' %>
-  <%= render 'layouts/info_bar' %>
-</div>
-
-
-<div align="center">
-  <%= render 'company/feed' %>
-  <%= render 'company/investment' %>
+<div class="container">
+  <div class="company-header">
+    <div class="header-image">
+      <% if @company.image? %>
+        <%= image_tag @company.image_url(:thumb) %>
+      <% end %>
+    </div>
+  </div>
+  <%= link_to '編集する', edit_company_path %> <br>
+  <div class="row">
+    <div class="col-sm-12 company-header">
+      <div style="font-size: 28px;">
+        <%= @company.company_name %>
+      </div>
+      <div class="company-url" style="font-size: 14px;">
+        <%= link_to @company.url %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <%= @company.description %>
+    </div>
+    <div class="col-md-4">
+      <div class="company-index">Portfolio</div>
+      <div>
+        <%= pie_chart @portfolio_chart %>
+      </div>
+    </div>
+  </div>
 </div>

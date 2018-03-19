@@ -6,7 +6,53 @@
   <h3>掲載中のプロジェクト</h3>
   <div class="row">
     <% @user.projects.each do |project| %>
-      <%= link_to project.title, project %>
+      <div class="col-md-3 project-block">
+        <%= link_to project do %>
+          <% if !project.image.blank? %>
+            <%= image_tag project.image, style: 'width:100%;' %>
+          <% else %>
+            <%= image_tag('no-image.png', style: 'width:100%;') %>
+          <% end %>
+          <div class="block-title" style="color: black;">
+            <%= project.title %> <br>
+            <%= project.description %>
+          </div>
+        <% end %>
+      </div>
     <% end %>
   </div>
+  <h3>現在きている融資依頼</h3>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Project</th>
+        <th scope="col">Company</th>
+        <th scope="col">Status</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user.projects.each do |project| %>
+        <% project.applies.each do |apply| %>
+          <tr>
+            <th scope="row">1</th>
+            <td>¥ <%= apply.amount_of_money %></td>
+            <td><%= apply.project.title %></td>
+            <td><%= apply.company_id %></td>
+            <td><%= apply.status %></td>
+            <td>
+              <% if apply.status == 'apply' %>
+                <%= link_to '受諾', apply_status_change_path(id: apply.id) , class: 'btn btn-primary' %>
+              <% elsif apply.status == 'success' %>
+                受諾済み
+              <% else %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
 </div>

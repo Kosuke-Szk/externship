@@ -1,15 +1,136 @@
-<div align="center">
-  <%= @project.title %>
+<div class="container">
+  <div class="title">
+    <%= @project.title %>
+  </div>
+  <div class="row">
+    <div class="col-sm-7">
+      <div class="thumbnail">
+        <% if @project.image? %>
+          <%= image_tag @project.image_url(:thumb), style: 'width: 100%;' %>
+        <% else %>
+          <%= image_tag 'no-image.png', style: 'width: 100%;' %>
+        <% end %>        
+      </div>
+      <h2 class="project-description">
+        <%= @project.opinion %>
+      </h2>
+    </div>
+    <div class="col-sm-5 overview">
+      <div class="current-info">
+        <div>目標金額</div>
+        <div class="number">¥<%= @project.target_amount_of_money %></div>
+        <div>現在打診中の金額</div>
+        <div class="number">¥<%= sum_of_apply(@project) %></div>
+        <div class="progress">
+          <div class="progress-bar progress-bar-warning" id="apply-progress"></div>
+        </div>
+        <div>確定金額</div>
+        <div class="number">¥<%= sum_of_success(@project) %></div>
+        <div>パトロン数 <button type="button" class="btn-sm btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+  全て見る
+        </button></div>
+        <div class="number"><%= sum_of_support_company(@project) %>社</div>
+        <div>開始日</div>
+        <div style="font-size: 24px;"><%= @project.created_at.strftime('%Y年%m月%d日') %></div>
+      </div>
+      <div class="apply-btn">
+        <% if company_signed_in? %>
+          <% if !current_company.company_applied_for(@project) %>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+              打診する
+            </button>
+          <% else %>
+            <%= link_to 'キャンセルする', apply_path(id: @project.id), method: :delete %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-7">
+      <%= @project.description %>
+    </div>
+    <div class="col-md-5">
+      <h6>このプロジェクトのオーナー</h5>
+      <%= link_to user_path(@project.user) do %>
+        <%= @project.user.fullname %>
+      <% end %>
+      <%= image_tag @project.user.image %>
+    </div>
+  </div>
   <%= @project.user_id %> <br>
-  <%= @project.target_amount_of_money %> <br>
   <%= @project.current_amount_of_money %> <br>
-  <%= @project.description %> <br>
-  <% if @project.image? %>
-    <%= image_tag @project.image_url(:thumb) %>
-  <% end %>
   <%= link_to '編集する', edit_project_path(@project) %> <br>
   <%= link_to '削除する', @project, method: :delete, data: {confirm: 'この求人を本当に削除しますか？'}%>
-  <% if company_signed_in? %>
-    <%= link_to '打診する', apply_index_path(id: @project.id), method: :post %>
-  <% end %>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><%= @project.title %>に融資を打診する</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="form-group">
+        <div class="modal-body">
+          <%= form_tag(apply_index_path, method: :post) do %>
+            <%= hidden_field_tag :id, @project.id %>
+            <div>現在<%= @project.current_amount_of_money %>/<%= @project.target_amount_of_money %></div>
+            <label>申請金額</label> <br>
+            <%= number_field_tag :amount_of_money , class: 'form-control' %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <%= submit_tag("打診する",  class: 'btn btn-primary') %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">出資企業</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <tbody>
+            <% @project.applies.each do |apply| %>
+              <tr>
+                <td>¥ <%= apply.amount_of_money %></td>
+                <td>Logo</td>
+                <td>
+                  <%= link_to company_path(apply.company) do %>
+                    <%= apply.company.company_name %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+
+</div>
+
+<script>
+  var sum_of_apply = <%= sum_of_apply(@project) %>;
+  var target_amount_of_money = <%= @project.target_amount_of_money %>
+  var progress_rate =  Math.round((sum_of_apply / target_amount_of_money) * 100);
+  $('#apply-progress').css('width',progress_rate + '%');
+  $('#apply-progress').text(progress_rate + '%');
+</script>

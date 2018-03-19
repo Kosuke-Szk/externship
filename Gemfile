@@ -62,3 +62,5 @@ gem 'jquery-rails'
 
 gem 'carrierwave'
 gem 'rmagick', require: 'RMagick'
+
+gem "chartkick"

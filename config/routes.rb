@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'user/show'
 
   get 'home/login_window'
+  get 'home/company_window'
 
   resources :project
   devise_for :users, controllers: {
@@ -24,4 +25,5 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   resources :apply, only: [:create, :destroy]
+  get 'apply/status_change'
 end

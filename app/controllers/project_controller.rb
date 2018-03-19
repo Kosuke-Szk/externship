@@ -45,7 +45,7 @@ class ProjectController < ApplicationController
 
   private
     def project_params
-      params.require(:project).permit(:user_id, :target_amount_of_money, :current_amount_of_money, :description, :title, :image)
+      params.require(:project).permit(:user_id, :target_amount_of_money, :current_amount_of_money, :description, :title, :image, :opinion)
     end
 
     def can_edit?

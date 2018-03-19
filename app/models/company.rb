@@ -5,4 +5,9 @@ class Company < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_many :projects, through: :applies
   has_many :applies
+  mount_uploader :image, ImageUploader
+
+  def company_applied_for(project)
+    !!applies.find_by(project_id: project.id)
+  end
 end

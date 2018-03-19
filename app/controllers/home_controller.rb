@@ -4,4 +4,8 @@ class HomeController < ApplicationController
 
   def login_window
   end
+
+  def company_window
+    
+  end
 end
