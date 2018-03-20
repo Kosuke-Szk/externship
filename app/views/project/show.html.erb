@@ -19,17 +19,20 @@
       <div class="current-info">
         <div>目標金額</div>
         <div class="number">¥<%= @project.target_amount_of_money %></div>
+        <br>
         <div>現在打診中の金額</div>
         <div class="number">¥<%= sum_of_apply(@project) %></div>
+        <br>
         <div class="progress">
           <div class="progress-bar progress-bar-warning" id="apply-progress"></div>
         </div>
         <div>確定金額</div>
-        <div class="number">¥<%= sum_of_success(@project) %></div>
-        <div>パトロン数 <button type="button" class="btn-sm btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+        <div class="number">¥<%= sum_of_success(@project) %></div> <br>
+        <div>パトロン数 <button type="button" class="btn-sm btn-outline-primary" data-toggle="modal" data-target="#exampleModalLong">
   全て見る
         </button></div>
         <div class="number"><%= sum_of_support_company(@project) %>社</div>
+        <br>
         <div>開始日</div>
         <div style="font-size: 24px;"><%= @project.created_at.strftime('%Y年%m月%d日') %></div>
       </div>

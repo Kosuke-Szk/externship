@@ -10,7 +10,7 @@
           <% end %>
           <div class="block-title" style="color: black;">
             <%= project.title %> <br>
-            <%= project.description %>
+            <%= truncate(project.description) %>
           </div>
         <% end %>
       </div>

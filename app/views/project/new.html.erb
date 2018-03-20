@@ -1,4 +1,4 @@
-<div align="center">
+<div class="container">
 <%= form_for(@project, url: {action: 'create'}, :html => { :multipart => true }) do |f| %>
   <% if @project.errors.any? %>
     <h4>入力した内容にエラーが<%= @project.errors.count %>件あります</h4>
@@ -8,19 +8,37 @@
       <% end %>
     </ul>
   <% end %>
-  <div class="container">
+  
     <div>
-    <label>タイトル</label>
-    <%= f.text_field :title, placeholder: "タイトル", class: 'form-control input-sm'  %><br>
-    <label>目標金額</label>
-    <%= f.number_field :target_amount_of_money, placeholder: "目標金額", class: 'form-control input-sm project_new_form'%><br>
-    <label>説明</label>
-    <%= f.text_field :description, placeholder: "説明", class: 'form-control input-sm'  %><br>
-    <%= f.hidden_field :user_id,  :value => current_user.id  %>
-    <label>画像</label>
-    <%= f.file_field :image, class: 'form-control'  %><br>
+      <h4>プロジェクトページ</h4> <br>
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>目標金額</th>
+            <td><%= f.number_field :target_amount_of_money, placeholder: "目標金額", class: 'form-control input-sm project_new_form'%></td>
+          </tr>
+          <tr>
+            <th>タイトル</th>
+            <td><%= f.text_field :title, placeholder: "タイトル", class: 'form-control input-sm'  %></td>
+          </tr>
+          <tr>
+            <th>画像</th>
+            <td><%= f.file_field :image%></td>
+          </tr>
+          <tr>
+            <th>概要説明</th>
+            <td><%= f.text_field :opinion, placeholder: "３行程度でプロジェクトの概要をまとめましょう。", class: 'form-control input-sm', style: 'height: 200px;' %></td>
+          </tr>
+          <tr>
+            <th>説明</th>
+            <td><%= f.text_field :description, placeholder: "ご自由にご入力ください。", class: 'form-control input-sm', style: 'height: 500px;' %></td>
+          </tr>
+          <%= f.hidden_field :user_id,  :value => current_user.id  %>
+        </tbody>
+      </table>
+    <div style="text-align: center;">
+      <%= f.submit "     作成     ", class: "btn btn-primary" %>
     </div>
-    <%= f.submit "作成", class: "btn btn-primary"  %>
   </div>
 <% end %>
 </div>
