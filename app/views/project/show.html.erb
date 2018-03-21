@@ -23,11 +23,12 @@
         <div>現在打診中の金額</div>
         <div class="number">¥<%= sum_of_apply(@project) %></div>
         <br>
-        <div class="progress">
-          <div class="progress-bar progress-bar-warning" id="apply-progress"></div>
-        </div>
         <div>確定金額</div>
         <div class="number">¥<%= sum_of_success(@project) %></div> <br>
+        <div class="progress">
+          <div class="progress-bar progress-bar-warning" id="apply-progress2" style="background-color: #FFC400;"></div>
+          <div class="progress-bar progress-bar-warning" id="apply-progress1" style="background-color: #2681FF"></div>
+        </div> <br>
         <div>パトロン数 <button type="button" class="btn-sm btn-outline-primary" data-toggle="modal" data-target="#exampleModalLong">
   全て見る
         </button></div>
@@ -133,7 +134,13 @@
 <script>
   var sum_of_apply = <%= sum_of_apply(@project) %>;
   var target_amount_of_money = <%= @project.target_amount_of_money %>
-  var progress_rate =  Math.round((sum_of_apply / target_amount_of_money) * 100);
-  $('#apply-progress').css('width',progress_rate + '%');
-  $('#apply-progress').text(progress_rate + '%');
+  var progress_rate1 =  Math.round((sum_of_apply / target_amount_of_money) * 100);
+  $('#apply-progress1').css('width',progress_rate1 + '%');
+  $('#apply-progress1').text(progress_rate1 + '%');
+
+  var sum_of_success = <%= sum_of_success(@project) %>;
+  var target_amount_of_money = <%= @project.target_amount_of_money %>
+  var progress_rate2 =  Math.round((sum_of_success / target_amount_of_money) * 100);
+  $('#apply-progress2').css('width',progress_rate2 + '%');
+  $('#apply-progress2').text(progress_rate2 + '%');
 </script>

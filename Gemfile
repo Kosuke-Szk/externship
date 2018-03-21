@@ -64,3 +64,4 @@ gem 'carrierwave'
 gem 'rmagick', require: 'RMagick'
 
 gem "chartkick"
+gem "font-awesome-rails"

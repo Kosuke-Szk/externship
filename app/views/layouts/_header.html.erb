@@ -26,9 +26,6 @@
             </div>
         </li>
         <% else %>
-        <li class="nav-item">
-          <%= link_to 'ログイン', '/home/login_window', class: 'nav-link' %>
-        </li>
       <% end %>
 
       <% if company_signed_in? %>
@@ -43,10 +40,6 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">工事中</a>
             </div>
-        </li>
-        <% else %>
-        <li class="nav-item">
-          <%= link_to '企業ログイン', '/home/company_window', class: 'nav-link' %>
         </li>
       <% end %>
     </ul>

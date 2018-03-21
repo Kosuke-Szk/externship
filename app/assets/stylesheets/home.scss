@@ -1,3 +1,24 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.home-btn-area {
+  margin-bottom: 40px;
+}
+.square_btn {
+    display: inline-block;
+    padding: 0.5em 1.2em;
+    text-decoration: none;
+    color: #67c5ff;
+    border: solid 2px #67c5ff;
+    border-radius: 3px;
+    transition: .4s;
+    font-size: 20px;
+    min-width: 232px;
+}
+
+.square_btn:hover {
+    background: #67c5ff;
+    color: white;
+    text-decoration: none;
+}

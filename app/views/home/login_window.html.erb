@@ -1,7 +1,29 @@
 <div class="container">
   <div align="center">
-    <%= link_to "サインアップ", new_user_registration_path %> <br>
-    <%= link_to "ログイン", new_user_session_path %><br>
-    <%= link_to "Facebookでログイン", user_facebook_omniauth_authorize_path %>
+    <div class="login-block">
+      <div class="sign_up">
+        <%= link_to "新規登録", new_user_registration_path, class: 'square_btn' %>
+      </div>
+      <div class="sign_in">
+        <%= link_to "ログイン", new_user_session_path, class: 'square_btn' %><br>
+        <%= link_to "Facebookでログイン", user_facebook_omniauth_authorize_path, class: 'square_btn' %>
+      </div>
+    </div>
   </div>
 </div>
+
+<style>
+  .login-block {
+    max-width: 400px;
+    padding: 30px 40px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  .sign_up  {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 30px;
+  }
+  .square_btn {
+    margin-bottom: 30px;
+  }
+</style>

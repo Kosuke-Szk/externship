@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <p>
+      <%= @user.fullname %>さん <br><br>
+      こんにちは。Malna運営事務局です。<br />
+      <%= @user.fullname %>さんのプロジェクト「<%= @apply.project.title %>」に<%= @apply.company.company_name %>さんから ¥<%= @apply.amount_of_money %> の融資依頼が出されました。 <br>
+      おめでとうございます！
+      <br><br>
+      融資依頼 <br>
+      ============ <br>
+      企業名：<%= @apply.company.company_name %> <br>
+      融資金額：¥<%= @apply.amount_of_money %> <br>
+      ============ <br>
+      <br><br>
+      ------------------------------------ <br>
+      Malna株式会社 <br>
+      ※このメールは配信用専用のアドレスです。 <br>
+      ------------------------------------ <br>
+    </p>
+  </body>
+</html>
