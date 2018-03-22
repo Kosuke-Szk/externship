@@ -15,9 +15,9 @@
     <label>目標金額</label>
     <%= f.number_field :target_amount_of_money, placeholder: "目標金額", class: 'form-control input-sm project_new_form'%><br>
     <label>短文説明</label>
-    <%= f.text_field :opinion, placeholder: "短文説明", class: 'form-control input-sm'  %><br>
+    <%= f.text_area :opinion, :size=>"60x10", class: 'form-control' %>
     <label>説明</label>
-    <%= f.text_field :description, placeholder: "説明", class: 'form-control input-sm'  %><br>
+    <%= f.text_area :description, :size=>"60x10", class: 'form-control' %>
     <label>画像</label>
     <%= f.file_field :image, class: 'form-control'  %><br>
     <%= f.hidden_field :user_id,  :value => current_user.id  %>

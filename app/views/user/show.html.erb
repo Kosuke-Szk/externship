@@ -1,7 +1,11 @@
 <div class="container">
   <div class="user-header">
     <div class="header-image">
-      <%= image_tag 'no-image.png' %>
+      <% if @user.background_image? %>
+        <%= image_tag @user.background_image %>
+      <% else %>
+        <%= image_tag 'no-image.png' %>
+      <% end %>
     </div>
   </div>
   <div class="row">
@@ -25,7 +29,7 @@
     <div class="col-md-8">
       <div class="user-block">
         <h5>自己紹介</h5>
-        <div><%= @user.description %></div>
+        <div><%= simple_format(@user.description) %></div>
       </div>
       <div class="user-block">
         <h5>掲載中のプロジェクト</h5>
@@ -57,6 +61,7 @@
               <th scope="col">Project</th>
               <th scope="col">Company</th>
               <th scope="col">Status</th>
+              <th scope="col">Message</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -66,9 +71,14 @@
                 <tr>
                   <th scope="row">1</th>
                   <td>¥ <%= apply.amount_of_money %></td>
-                  <td><%= apply.project.title %></td>
-                  <td><%= apply.company_id %></td>
+                  <td><%= link_to apply.project do %><%= apply.project.title %><% end %></td>
+                  <td><%= link_to apply.company do %><%= apply.company.company_name %><% end %></td>
                   <td><%= apply.status %></td>
+                  <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever=<%= apply.message %> >
+                      確認
+                    </button>
+                  </td>
                   <td>
                     <% if apply.status == 'apply' %>
                       <%= link_to '受諾', apply_status_change_path(id: apply.id) , class: 'btn btn-primary' %>
@@ -85,4 +95,37 @@
       </div>
     </div>
   </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sample</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="form-group">
+        <div class="modal-body">
+          <div class="modal-message"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+<!-- Modal -->
+
+</div>
+
+<script>
+$('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget)
+  var username = button.data('whatever')
+
+  //Ajaxの処理はここに
+
+  var modal = $(this)
+  modal.find('.modal-message').text(username)
+})
+</script>

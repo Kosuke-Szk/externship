@@ -19,7 +19,32 @@
   </div>
   <div class="row">
     <div class="col-md-8">
-      <%= @company.description %>
+      <div class="company-block">
+        <h5>こんにちは。<%= @company.company_name %>です。</h5>
+        <%= @company.description %>
+      </div>
+      <div class="company-block">
+        <h5>投資先のプロジェクト</h5>
+        <div class="row">
+          
+          <% @company.applies.each do |apply| %>
+            <div class="col-md-3 project-block">
+              <%= link_to apply.project do %>
+
+              <div class="block-title" style="color: black;">
+                <% if !apply.project.image.blank? %>
+                  <%= image_tag apply.project.image, style: 'width:100%;' %>
+                <% else %>
+                  <%= image_tag('no-image.png', style: 'width:100%;') %>
+                <% end %>
+                <%= apply.project.title %>
+                <%= truncate(apply.project.description) %>
+              </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
     <div class="col-md-4">
       <div class="company-index">Portfolio</div>

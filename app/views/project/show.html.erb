@@ -12,7 +12,7 @@
         <% end %>        
       </div>
       <h2 class="project-description">
-        <%= @project.opinion %>
+        <%= simple_format(@project.opinion) %>
       </h2>
     </div>
     <div class="col-sm-5 overview">
@@ -52,7 +52,7 @@
   </div>
   <div class="row">
     <div class="col-md-7">
-      <%= @project.description %>
+      <%= simple_format(@project.description) %>
     </div>
     <div class="col-md-5">
       <h6>このプロジェクトのオーナー</h5>
@@ -62,8 +62,7 @@
       <%= image_tag @project.user.image %>
     </div>
   </div>
-  <%= @project.user_id %> <br>
-  <%= @project.current_amount_of_money %> <br>
+  <br>
   <%= link_to '編集する', edit_project_path(@project) %> <br>
   <%= link_to '削除する', @project, method: :delete, data: {confirm: 'この求人を本当に削除しますか？'}%>
 
@@ -77,13 +76,23 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="form-group">
+      <div class="">
         <div class="modal-body">
           <%= form_tag(apply_index_path, method: :post) do %>
             <%= hidden_field_tag :id, @project.id %>
-            <div>現在<%= @project.current_amount_of_money %>/<%= @project.target_amount_of_money %></div>
-            <label>申請金額</label> <br>
-            <%= number_field_tag :amount_of_money , class: 'form-control' %>
+            <label>申請金額：</label>
+            <div>¥ <%= sum_of_apply(@project) %> / <%= @project.target_amount_of_money %></div>
+            <label>確定金額：</label>
+            <div>¥ <%= sum_of_success(@project) %> / <%= @project.target_amount_of_money %></div>
+            <br>
+            <div class="form-group">
+              <label>申請金額：</label> <br>
+              <input type="number" name="amount_of_money" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>メッセージ：</label>
+              <textarea  name="message" id="message" rows="10" class="form-control" wrap="hard"></textarea>
+            </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

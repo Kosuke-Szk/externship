@@ -3,7 +3,7 @@ class ApplyController < ApplicationController
   def create
     @project = Project.find(params[:id])
 
-    @apply = current_company.applies.new(project_id: @project.id, amount_of_money: params[:amount_of_money])
+    @apply = current_company.applies.new(project_id: @project.id, amount_of_money: params[:amount_of_money], message: params[:message])
     respond_to do |format|
       if @apply.save
         user = User.find(@project.user_id)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180320113849) do
+ActiveRecord::Schema.define(version: 20180322040801) do
 
   create_table "applies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "project_id"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20180320113849) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0
+    t.text "message"
     t.index ["company_id"], name: "index_applies_on_company_id"
     t.index ["project_id"], name: "index_applies_on_project_id"
   end
@@ -39,7 +40,6 @@ ActiveRecord::Schema.define(version: 20180320113849) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "image"
     t.text "place"
     t.index ["email"], name: "index_companies_on_email", unique: true
     t.index ["reset_password_token"], name: "index_companies_on_reset_password_token", unique: true
@@ -91,11 +91,12 @@ ActiveRecord::Schema.define(version: 20180320113849) do
     t.string "twitter_url"
     t.string "facebook_url"
     t.string "github_url"
+    t.string "background_image"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "applies", "companies"
   add_foreign_key "applies", "projects"
-  add_foreign_key "projects", "users"
+  add_foreign_key "projects", "users", on_delete: :cascade
 end
